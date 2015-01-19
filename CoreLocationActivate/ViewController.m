@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -18,17 +19,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
-    CLLocationManager *lm = [[CLLocationManager alloc] init];
+    self.locationManager = [[CLLocationManager alloc] init];
     if ([CLLocationManager locationServicesEnabled]) {
-        lm.delegate = self;
-        lm.distanceFilter = kCLDistanceFilterNone;
-        lm.desiredAccuracy = kCLLocationAccuracyBest;
+        self.locationManager.delegate = self;
+        self.locationManager.distanceFilter = kCLDistanceFilterNone;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     }
     
-    if ([lm respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-        [lm requestWhenInUseAuthorization];
+    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
     } else {
-        [lm startUpdatingLocation];
+        [self.locationManager startUpdatingLocation];
     }
 }
 
